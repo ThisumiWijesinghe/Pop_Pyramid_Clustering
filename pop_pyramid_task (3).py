@@ -12,16 +12,21 @@ Original file is located at
 """
 
 import pandas as pd
+import numpy as np
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy.sparse.csgraph import laplacian
+from sklearn.decomposition import PCA
+from sklearn.neighbors import kneighbors_graph
 
 """##Used age_data.csv and it contains 21 age groups per country for 2021"""
 
 df = pd.read_csv('age_data.csv',low_memory=False)
 
 df = df[['Location','Time', 'AgeGrpStart','PopTotal']]
+df.dropna(inplace=True)
 
 #Filter for 2021 year
 year_to_use = 2021
@@ -44,7 +49,6 @@ scaler = StandardScaler()
 data_scaled = scaler.fit_transform(pivot_norm)
 
 #PCA
-from sklearn.decomposition import PCA
 pca = PCA(n_components=2)
 data_2d = pca.fit_transform(data_scaled)
 
@@ -56,6 +60,8 @@ plt.ylabel('Variance Explained(%)')
 plt.title('PCA Variance Explained ')
 plt.show()
 
+
+#KMeans Clustering 
 k = 4
 kmeans = KMeans(n_clusters=k, random_state=42)
 clusters_kmeans = kmeans.fit_predict(data_scaled)
@@ -107,23 +113,7 @@ for cluster_num in sorted(set(dbscan_labels)):
   plt.xticks(rotation=45)
   plt.show()
 
-#Spectral Clustering
-spectral = SpectralClustering(n_clusters=4, random_state=42)
-spectral_labels = spectral.fit_predict(data_scaled)
-pivot_norm['Spectral_Cluster'] = spectral_labels
-
-for cluster_num in range(4):
-  cluster_data = pivot_norm[pivot_norm['Spectral_Cluster'] == cluster_num].drop(columns=['Cluster','DBSCAN_Cluster','Spectral_Cluster'])
-  mean_pyramid = cluster_data.mean()
-  plt.figure(figsize=(12,6))
-  sns.barplot(x=mean_pyramid.index.astype(str), y=mean_pyramid.values)
-  plt.title(f'Average Population Pyramid for Spectral cluster {cluster_num} (2021)')
-  plt.xlabel('Age Group Start')
-  plt.ylabel('Proportion of Population')
-  plt.xticks(rotation=45)
-  plt.show()
-
-#Scatter Plot for DBSCAN
+  #Scatter Plot for DBSCAN
 plt.figure(figsize=(10, 7))
 sns.scatterplot(x=data_2d[:, 0], y=data_2d[:, 1], hue=pivot_norm['DBSCAN_Cluster'], palette='tab10', s=50)
 plt.title("DBSCAN Clusters (2021)")
@@ -132,11 +122,75 @@ plt.ylabel("PCA Component 2")
 plt.legend(title='Cluster')
 plt.show()
 
-# PCA Scatter plot for Spectral Clusters
-plt.figure(figsize=(10, 7))
-sns.scatterplot(x=data_2d[:, 0], y=data_2d[:, 1], hue=pivot_norm['Spectral_Cluster'], palette='tab10', s=50)
-plt.title("Spectral Clusters (2021)")
-plt.xlabel("PCA Component 1")
-plt.ylabel("PCA Component 2")
+#Spectral Clustering
+
+n_neighbors = 10
+affinity = kneighbors_graph(data_scaled,n_neighbors=n_neighbors,include_self=True)
+
+laplacian_matrix = laplacian(affinity,normed=True)
+
+eigenvalues,_ = np.linalg.eigh(laplacian_matrix.toarray())
+
+
+ plt.figure(fig_size=(8,5))
+ plt.plot(range(1,len(eigenvalues)+1), eigenvalues,marker='o')
+ plt.xlabel('Index')
+ plt.ylabel('EigenVlaue')
+ plt.title('Eigenvalues of graph laplacian for Eigengao Heuristic')
+ plt.grid(True)
+ plt.show()
+
+eigengaps = np.diff(eigenvalues)
+
+optimal_clusters = np.argmax(eigengaps)+1
+print(f"Optimal no of clusters based on eigengap heuristic:{optimal_clusters}")
+
+spectral = SpectralClustering(n_clusters=optimal_clusters,affinity='nearest_neighbors',random_state=42)
+spectral_labels = spectral.fit_predict(data_scaled)
+pivot_norm['Cluster_Spectral'] = spectral_labels
+  
+
+#Scatter Plot for Spectral Clustering
+plt.figure(figsize=(8,6))
+sns.scatterplot(x=data_2d[:,0], y=data_2d[:,1],hue = spectral_labels,palette='tab10')
+plt.title(f'Spectral Clutering (PCA projection) with {optimal_clusters} clusters')
+plt.xlabel('PCA 1')
+plt.ylabel('PCA 2')
 plt.legend(title='Cluster')
 plt.show()
+
+#Plot average pop pyramid per spectral cluster
+for cluster_num in range(optimal_clusters):
+  clusters_data = pivot_norm[pivot_norm['cluster_Spectral']== cluster_num].drop(columns=['Cluster_KMeans','Cluster_DBSCAN','Cluster_Spectral'])
+  mean_pyramid = cluster_data.mean()
+  plt.figure(figsize=(12,6))
+  sns.barplot(x = mean_pyramid.index.astype(str),y = mean_pyramid.values)
+  plt.title(f'Average Population Pyramid for Spectral Cluster{cluster_num} (2021)')
+  plt.xlabel('Age Group Start')
+  plt.ylabel('Proportion of Population')
+  plt.xticks(rotation=45)
+  plt.show()
+
+  #Function to save countries under each cluster 
+  def list_countries_per_cluster(df, cluster_col, method_name):
+    clusters = sorted(df[cluster_col].unique())
+    with open(f"{method_name}_cluster_countries.txt", "w") as f:
+      for cluster_num in clusters:
+        countries = df[df[cluster_col] == cluster_num].index.tolist()
+        header = f"Cluster {cluster_num} ({len(countries)}countries):"
+        print(header)
+        print(countries)
+        print("\n")
+        f.write(header+ "\n")
+        f.write(",".join(countries)+"\n\n")
+
+#Save countries per cluster for all methods 
+list_countries_per_cluster(pivot_norm, 'Cluster_KMeans', 'KMeans')
+list_countries_per_cluster(pivot_norm,'Cluster_DBSCAN', 'DBSCAN')
+list_countries_per_cluster(pivot_norm,'Cluster_spectral','SpectralClsutering')
+
+#Save cluster tasks to csv 
+pivot_norm.reset_index()[['Location','Cluster_KMeans', ' Cluster_DBSCAN','Cluster_Spectral']].to_csv('all_clustering_results.csv',index = False)
+print("CLuster tasks saved to all_clustering_results.csv")
+
+
