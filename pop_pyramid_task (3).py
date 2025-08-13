@@ -132,13 +132,13 @@ laplacian_matrix = laplacian(affinity,normed=True)
 eigenvalues,_ = np.linalg.eigh(laplacian_matrix.toarray())
 
 
- plt.figure(fig_size=(8,5))
- plt.plot(range(1,len(eigenvalues)+1), eigenvalues,marker='o')
- plt.xlabel('Index')
- plt.ylabel('EigenVlaue')
- plt.title('Eigenvalues of graph laplacian for Eigengao Heuristic')
- plt.grid(True)
- plt.show()
+plt.figure(fig_size=(8,5))
+plt.plot(range(1,len(eigenvalues)+1), eigenvalues,marker='o')
+plt.xlabel('Index')
+plt.ylabel('EigenVlaue')
+plt.title('Eigenvalues of graph laplacian for Eigengao Heuristic')
+plt.grid(True)
+plt.show()
 
 eigengaps = np.diff(eigenvalues)
 
