@@ -11,7 +11,6 @@ Original file is located at
 #KMeans Clustering Method
 """
 
-
 import pandas as pd
 import numpy as np
 from sklearn.cluster import KMeans
@@ -62,7 +61,7 @@ plt.title('PCA Variance Explained ')
 plt.show()
 
 
-#KMeans Clustering
+#KMeans Clustering 
 k = 4
 kmeans = KMeans(n_clusters=k, random_state=42)
 clusters_kmeans = kmeans.fit_predict(data_scaled)
@@ -133,7 +132,7 @@ laplacian_matrix = laplacian(affinity,normed=True)
 eigenvalues,_ = np.linalg.eigh(laplacian_matrix.toarray())
 
 
-plt.figure(figsize=(8,5))
+plt.figure(fig_size=(8,5))
 plt.plot(range(1,len(eigenvalues)+1), eigenvalues,marker='o')
 plt.xlabel('Index')
 plt.ylabel('EigenVlaue')
@@ -149,7 +148,7 @@ print(f"Optimal no of clusters based on eigengap heuristic:{optimal_clusters}")
 spectral = SpectralClustering(n_clusters=optimal_clusters,affinity='nearest_neighbors',random_state=42)
 spectral_labels = spectral.fit_predict(data_scaled)
 pivot_norm['Cluster_Spectral'] = spectral_labels
-
+  
 
 #Scatter Plot for Spectral Clustering
 plt.figure(figsize=(8,6))
@@ -162,7 +161,7 @@ plt.show()
 
 #Plot average pop pyramid per spectral cluster
 for cluster_num in range(optimal_clusters):
-  clusters_data = pivot_norm[pivot_norm['Cluster_Spectral']== cluster_num].drop(columns=['Cluster','DBSCAN_Cluster','Cluster_Spectral'])
+  clusters_data = pivot_norm[pivot_norm['cluster_Spectral']== cluster_num].drop(columns=['Cluster_KMeans','Cluster_DBSCAN','Cluster_Spectral'])
   mean_pyramid = cluster_data.mean()
   plt.figure(figsize=(12,6))
   sns.barplot(x = mean_pyramid.index.astype(str),y = mean_pyramid.values)
@@ -172,7 +171,7 @@ for cluster_num in range(optimal_clusters):
   plt.xticks(rotation=45)
   plt.show()
 
-  #Function to save countries under each cluster
+  #Function to save countries under each cluster 
   def list_countries_per_cluster(df, cluster_col, method_name):
     clusters = sorted(df[cluster_col].unique())
     with open(f"{method_name}_cluster_countries.txt", "w") as f:
@@ -185,11 +184,13 @@ for cluster_num in range(optimal_clusters):
         f.write(header+ "\n")
         f.write(",".join(countries)+"\n\n")
 
-#Save countries per cluster for all methods
-list_countries_per_cluster(pivot_norm, 'Cluster', 'KMeans')
-list_countries_per_cluster(pivot_norm,'DBSCAN_Cluster', 'DBSCAN')
-list_countries_per_cluster(pivot_norm,'Cluster_Spectral','SpectralClustering')
+#Save countries per cluster for all methods 
+list_countries_per_cluster(pivot_norm, 'Cluster_KMeans', 'KMeans')
+list_countries_per_cluster(pivot_norm,'Cluster_DBSCAN', 'DBSCAN')
+list_countries_per_cluster(pivot_norm,'Cluster_spectral','SpectralClsutering')
 
-#Save cluster tasks to csv
-pivot_norm.reset_index()[['Location','Cluster', 'DBSCAN_Cluster','Cluster_Spectral']].to_csv('all_clustering_results.csv',index = False)
+#Save cluster tasks to csv 
+pivot_norm.reset_index()[['Location','Cluster_KMeans', ' Cluster_DBSCAN','Cluster_Spectral']].to_csv('all_clustering_results.csv',index = False)
 print("CLuster tasks saved to all_clustering_results.csv")
+
+
