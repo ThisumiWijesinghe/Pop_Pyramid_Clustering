@@ -9,7 +9,10 @@ This project clusters countries based on their population pyramids using K-Means
 - Includes 3 clustering methods  :K-Means,DBSCAN and Spectral Clustering 
 - PCA variance explained plot added to assess dimensionality reduction 
 -Saves seperate CSVs for each clustering methods
+- Spectral Clustering automatically determines optimal number of clusters using the eigengap heuristic
+- Generates text files listing countries under each cluster for all 3 methods 
 - All preprocessing,clustering and Visualization steps in one script
+
 ## Population Pyramid Summary
 A population pyramid shows the age and gender distribution of a population. Its shape reveals demographic trends, such as whether a country has a young, balanced, or aging population. This helps in planning for healthcare, education, and workforce needs, and is useful for comparing populations across countries or over time.
 
@@ -22,7 +25,7 @@ A population pyramid shows the age and gender distribution of a population. Its 
 ## Methods Used
 - **K-Means**: Groups countries into broad,clearly defined clusters (4 clusters used here)
 - **DBSCAN**: Identifies dense clusters and outliers , parameters(eps,min_samples) tuned to get meaningful results.
-- **Spectral Clustering**: Captures complex boundaries between demographic groups.
+- **Spectral Clustering**: Captures complex boundaries between demographic groups and automatically selects the optimal number of clusters using the eigengap heuristic.
 
 # Methodology
 1.Data Preprocessing
@@ -37,12 +40,13 @@ A population pyramid shows the age and gender distribution of a population. Its 
 3.Clustering:
 - K-Means : Predefined 4 clusters to group countries with similar demographic patterns.
 - DBSCAN: Unsupervised density-based method to detect natural clusters and outliers without a fixed no of clusters .
-- Spectral Clustering: Graph-based approach to detect non-linear cluster shapes.
+- Spectral Clustering: Graph-based approach to detect non-linear cluster shapes and optimal number of clusters is selected using the eigengap heuristic.
 
 4.Export & Visualization:
 - PCA scatter plots for each clustering method 
 - Average pop pyramid bar plots for each cluster
-- CSV files mapping each country to its cluster for all 3 methods 
+- CSV files mapping each country to its cluster for all 3 methods in one file.(all_clustering_results.csv)
+- Text files listing countries under each cluster for K-Means,DBSCAN and Spectral clustering.
 
 
 # Clustering Countries by Population Pyramids
@@ -101,13 +105,16 @@ The script will also save the clustering results to CSV files:
 * `dbscan_countries.csv`: Country to DBSCAN cluster mapping(including -1 for outliers)
 * `spectral_countries.csv`:
 Country to spectral clustering cluster mapping 
+* `all_clustering_results.csv`: Consolidated CSV of cluster assignments for all 3 methods .
+* `_cluster_countries.txt`:Text files listing countries in each cluster for all 3 methods 
 
 
-Insights
+# Insights
 - Cluster0 : countries with younger populations
 - Cluster1 : Countries with balanced age distribution
 - Cluster2 : Countries with aging populations
 - Cluster3 : Mixed demographic patterns
 - DBSCAN is better for finding unusual profiles , while K-Means is easier for broad interpretation.
+-Spectral Clustering with eigengap heuristic automatically identifies the optimal number of clusters,capturing complex demographic patterns
 
 By examining the plots and the output files, one can gain insights into the different patterns of population structures that exist across the globe.
