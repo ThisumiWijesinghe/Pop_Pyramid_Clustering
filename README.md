@@ -2,6 +2,14 @@
 
 This project clusters countries based on their population pyramids using K-Means, DBSCAN, and Spectral Clustering.
 
+### Key Updates
+- Uses one CSV file(age_data.csv)
+- Filters data to only year 2021
+- Uses exactly 21 age group variables per country (PopTotal values)
+- Includes 3 clustering methods  :K-Means,DBSCAN and Spectral Clustering 
+- PCA variance explained plot added to assess dimensionality reduction 
+-Saves seperate CSVs for each clustering methods
+- All preprocessing,clustering and Visualization steps in one script
 ## Population Pyramid Summary
 A population pyramid shows the age and gender distribution of a population. Its shape reveals demographic trends, such as whether a country has a young, balanced, or aging population. This helps in planning for healthcare, education, and workforce needs, and is useful for comparing populations across countries or over time.
 
@@ -12,14 +20,29 @@ A population pyramid shows the age and gender distribution of a population. Its 
 - Each row represents a country’s population distribution for one year.
 
 ## Methods Used
-- **K-Means**: Clear, broad categories.
-- **DBSCAN**: Finds unusual demographic patterns.
-- **Spectral Clustering**: Groups with complex boundaries.
+- **K-Means**: Groups countries into broad,clearly defined clusters (4 clusters used here)
+- **DBSCAN**: Identifies dense clusters and outliers , parameters(eps,min_samples) tuned to get meaningful results.
+- **Spectral Clustering**: Captures complex boundaries between demographic groups.
 
-## How to Run
-```bash
-pip install pandas scikit-learn matplotlib seaborn
-python clustering_script.py
+# Methodology
+1.Data Preprocessing
+- Filtered the dataset to year 2021 only 
+-Pivoted so rows = countries,columns=age groups(21 variables),values=total population 
+- Normalized values to represent population proportions rather than total size 
+
+2.Dimentionality Reduction(PCA)
+- Reduced 21 variables to 2 principal components for visualization 
+- Plotted variance explained to show how much information is retained.
+
+3.Clustering:
+- K-Means : Predefined 4 clusters to group countries with similar demographic patterns.
+- DBSCAN: Unsupervised density-based method to detect natural clusters and outliers without a fixed no of clusters .
+- Spectral Clustering: Graph-based approach to detect non-linear cluster shapes.
+
+4.Export & Visualization:
+- PCA scatter plots for each clustering method 
+- Average pop pyramid bar plots for each cluster
+- CSV files mapping each country to its cluster for all 3 methods 
 
 
 # Clustering Countries by Population Pyramids
@@ -38,23 +61,6 @@ The data has the following relevant columns:
 * `AgeGrpStart`: The starting age of the age group.
 * `PopTotal`: The total population in that age group.
 
-## Methodology
-
-The analysis follows these steps:
-
-1.  **Data Preprocessing:**
-    * The data is filtered to include only records from the year 2021.
-    * The dataset is pivoted to create a matrix where rows are countries and columns are age groups, with the values being the population for each age group.
-    * The population values for each country are normalized to represent the proportion of the population in each age group. This ensures that countries are compared based on the shape of their population distribution, not their total population size.
-
-2.  **Dimensionality Reduction (PCA):**
-    * Principal Component Analysis (PCA) is used to reduce the 21 dimensions (age groups) to 2 principal components. This is done primarily for visualizing the clusters on a 2D scatter plot.
-
-3.  **Clustering Algorithms:**
-    * **K-Means Clustering:** The countries are grouped into 4 clusters.
-    * **DBSCAN:** A density-based clustering algorithm is applied to identify clusters without a predefined number. It also identifies outlier countries as "noise".
-    * **Spectral Clustering:** A graph-based clustering method is used to group countries into 4 clusters.
-
 ## How to Run the Script
 
 1.  **Prerequisites:** Make sure you have Python installed, along with the following libraries:
@@ -69,10 +75,10 @@ The analysis follows these steps:
     ```
 
 2.  **Execution:**
-    * Place the `age_data.csv` file in the same directory as the Python script (`pop_pyramid_task.py`).
+    * Place the `age_data.csv` file in the same directory as the Python script (`pop_pyramid_task3.py`).
     * Run the script from your terminal:
     ```bash
-    python pop_pyramid_task.py
+    python pop_pyramid_task3.py
     ```
 
 ## Results and Outputs
@@ -92,6 +98,16 @@ Several plots will be generated and displayed for each clustering algorithm, all
 The script will also save the clustering results to CSV files:
 
 * `kmeans_countries.csv`: A file containing each country and its assigned K-Means cluster.
-* `clustered_countries.csv`: This file is overwritten in script. In its final state, it will contain the K-Means cluster for each country.
+* `dbscan_countries.csv`: Country to DBSCAN cluster mapping(including -1 for outliers)
+* `spectral_countries.csv`:
+Country to spectral clustering cluster mapping 
+
+
+Insights
+- Cluster0 : countries with younger populations
+- Cluster1 : Countries with balanced age distribution
+- Cluster2 : Countries with aging populations
+- Cluster3 : Mixed demographic patterns
+- DBSCAN is better for finding unusual profiles , while K-Means is easier for broad interpretation.
 
 By examining the plots and the output files, one can gain insights into the different patterns of population structures that exist across the globe.
