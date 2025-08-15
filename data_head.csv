@@ -1,0 +1,6 @@
+SortOrder,LocID,Notes,ISO3_code,ISO2_code,SDMX_code,LocTypeID,LocTypeName,ParentID,Location,VarID,Variant,Time,MidPeriod,AgeGrp,AgeGrpStart,AgeGrpSpan,PopMale,PopFemale,PopTotal
+,5507,,,,,,,,ADB region: Central and West Asia,2,Medium,1950,1950.5,0-4,0,5,5232.059,5043.965,10276.024
+,5507,,,,,,,,ADB region: Central and West Asia,2,Medium,1950,1950.5,5-9,5,5,4225.927,3918.034,8143.961
+,5507,,,,,,,,ADB region: Central and West Asia,2,Medium,1950,1950.5,10-14,10,5,4379.68,4089.418,8469.097
+,5507,,,,,,,,ADB region: Central and West Asia,2,Medium,1950,1950.5,15-19,15,5,3763.264,3413.88,7177.144
+,5507,,,,,,,,ADB region: Central and West Asia,2,Medium,1950,1950.5,20-24,20,5,3532.315,3152.539,6684.854
