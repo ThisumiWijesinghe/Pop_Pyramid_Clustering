@@ -1,0 +1,12 @@
+Cluster 0 (47 countries):
+Algeria,Argentina,Armenia,Azerbaijan,Bahamas,Belize,Bhutan,Brazil,Cambodia,Colombia,Costa Rica,Djibouti,Dominican Republic,Ecuador,Egypt,El Salvador,Guyana,India,Indonesia,Israel,Jamaica,Jordan,Kazakhstan,Kyrgyzstan,Lebanon,Libya,Malaysia,Mauritius,Mexico,Mongolia,Morocco,Myanmar,Nepal,Nicaragua,Panama,Paraguay,Peru,Philippines,Singapore,South Africa,Sri Lanka,Suriname,Trinidad and Tobago,Tunisia,Turkmenistan,Tuvalu,Uzbekistan
+
+Cluster 1 (46 countries):
+Albania,Australia,Austria,Belarus,Belgium,Bosnia and Herzegovina,Bulgaria,Canada,Chile,China,Croatia,Cuba,Cyprus,Denmark,Estonia,Finland,France,Georgia,Germany,Greece,Hungary,Iceland,Ireland,Italy,Japan,Latvia,Lithuania,Malta,Montenegro,Netherlands,New Zealand,North Macedonia,Norway,Poland,Portugal,Romania,Serbia,Slovakia,Slovenia,Spain,Sweden,Switzerland,Thailand,Ukraine,United Kingdom,Uruguay
+
+Cluster 2 (48 countries):
+Afghanistan,Angola,Benin,Botswana,Burkina Faso,Burundi,Cameroon,Central African Republic,Chad,Democratic Republic of the Congo,Eritrea,Eswatini,Ethiopia,Gambia,Ghana,Guatemala,Guinea,Guinea-Bissau,Haiti,Honduras,Iraq,Kenya,Lesotho,Liberia,Madagascar,Malawi,Mali,Mauritania,Mozambique,Namibia,Niger,Nigeria,Pakistan,Papua New Guinea,Rwanda,Senegal,Sierra Leone,Somalia,South Sudan,Sudan,Tajikistan,Timor-Leste,Togo,Uganda,Vanuatu,Yemen,Zambia,Zimbabwe
+
+Cluster 3 (5 countries):
+Kuwait,Oman,Qatar,Saudi Arabia,United Arab Emirates
+
