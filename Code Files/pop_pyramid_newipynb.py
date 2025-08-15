@@ -7,7 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1qVPwk3XMG0zG4PHIyRpp8HRxrmcWfAnS
 """
 
-pip install pycountry
+
 
 # Task: Develop a method to cluster countries based on pop pyramids ( Using age_Dataset.csv)
 
@@ -36,11 +36,46 @@ df.dropna(subset=['Location','AgeGrpStart','PopTotal'],inplace=True)
 df['AgeGrpStart'] = df['AgeGrpStart'].astype(int)
 df['PopTotal'] = df['PopTotal'].astype(float)
 
-import pycountry
-
-valid_countries =set(country.name for country in pycountry.countries)
+recognized_countries = [
+    "Afghanistan", "Albania", "Algeria", "Angola", "Argentina",
+    "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas",
+    "Belarus", "Belgium", "Belize", "Benin", "Bhutan",
+    "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil",
+    "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon",
+    "Canada", "Central African Republic", "Chad", "Chile",
+    "China", "Colombia", "Costa Rica", "Croatia", "Cuba",
+    "Cyprus", "Czech Republic", "Democratic Republic of the Congo",
+    "Denmark", "Djibouti", "Dominican Republic", "Ecuador",
+    "Egypt", "El Salvador", "Eritrea", "Estonia", "Eswatini",
+    "Ethiopia", "Finland", "France", "Gambia", "Georgia",
+    "Germany", "Ghana", "Greece", "Guatemala", "Guinea",
+    "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary",
+    "Iceland", "India", "Indonesia", "Iran", "Iraq",
+    "Ireland", "Israel", "Italy", "Jamaica", "Japan",
+    "Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyzstan",
+    "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia",
+    "Libya", "Lithuania", "Madagascar", "Malawi", "Malaysia",
+    "Mali", "Malta", "Mauritania", "Mauritius", "Mexico",
+    "Moldova", "Mongolia", "Montenegro", "Morocco", "Mozambique",
+    "Myanmar", "Namibia", "Nepal", "Netherlands", "New Zealand",
+    "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia",
+    "Norway", "Oman", "Pakistan", "Panama", "Papua New Guinea",
+    "Paraguay", "Peru", "Philippines", "Poland", "Portugal",
+    "Qatar", "Romania", "Russia", "Rwanda", "Saint Tome and Principe",
+    "Saudi Arabia", "Senegal", "Serbia", "Sierra Leone", "Singapore",
+    "Slovakia", "Slovenia", "Somalia", "South Africa", "South Korea",
+    "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname",
+    "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan",
+    "Tanzania", "Thailand", "Timor-Leste", "Togo", "Trinidad and Tobago",
+    "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda",
+    "Ukraine", "United Arab Emirates", "United Kingdom", "United States",
+    "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela",
+    "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+]
 
 df = df[df['Location'].isin(valid_countries)]
+ print(f"Number of unique countries after filtering:
+       {df['Location'].nunique()}")
 
 pivot_df = df.pivot_table(index=['Location'], columns= 'AgeGrpStart', values='PopTotal', fill_value=0)
 
