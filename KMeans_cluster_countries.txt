@@ -1,0 +1,12 @@
+Cluster 0 (57countries):
+Albania,Andorra,Anguilla,Antigua and Barbuda,Argentina,Armenia,Aruba,Australia,Bahamas,Barbados,Belarus,Bonaire, Sint Eustatius and Saba,Brazil,Cayman Islands,Chile,China,Cook Islands,Costa Rica,Curaçao,Cyprus,Dominica,Falkland Islands (Malvinas),French Polynesia,Georgia,Greenland,Grenada,Guam,Iceland,Ireland,Israel,Kuwait,Luxembourg,Malta,Mauritius,Montenegro,New Caledonia,New Zealand,Niue,North Macedonia,Northern Mariana Islands,Palau,Russian Federation,Réunion,Saint Kitts and Nevis,Saint Lucia,Saint Vincent and the Grenadines,Seychelles,Singapore,Sint Maarten (Dutch part),Slovakia,Sri Lanka,Thailand,Trinidad and Tobago,Tunisia,Turks and Caicos Islands,Türkiye,Uruguay
+
+Cluster 1 (47countries):
+Austria,Belgium,Bermuda,Bosnia and Herzegovina,Bulgaria,Canada,Croatia,Cuba,Czechia,Denmark,Estonia,Faroe Islands,Finland,France,Germany,Gibraltar,Greece,Guadeloupe,Guernsey,Hungary,Isle of Man,Italy,Japan,Jersey,Latvia,Liechtenstein,Lithuania,Martinique,Monaco,Montserrat,Netherlands,Norway,Poland,Portugal,Puerto Rico,Romania,Saint Barthélemy,Saint Martin (French part),Saint Pierre and Miquelon,San Marino,Serbia,Slovenia,Spain,Sweden,Switzerland,Ukraine,United Kingdom
+
+Cluster 2 (59countries):
+Afghanistan,Angola,Benin,Botswana,Burkina Faso,Burundi,Cameroon,Central African Republic,Chad,Comoros,Congo,Côte d'Ivoire,Equatorial Guinea,Eritrea,Eswatini,Ethiopia,Gabon,Gambia,Ghana,Guatemala,Guinea,Guinea-Bissau,Iraq,Kenya,Kiribati,Lesotho,Liberia,Madagascar,Malawi,Mali,Marshall Islands,Mauritania,Mayotte,Mozambique,Namibia,Nauru,Niger,Nigeria,Pakistan,Papua New Guinea,Rwanda,Samoa,Sao Tome and Principe,Senegal,Sierra Leone,Solomon Islands,Somalia,South Sudan,Sudan,Syrian Arab Republic,Tajikistan,Timor-Leste,Togo,Tonga,Uganda,Vanuatu,Yemen,Zambia,Zimbabwe
+
+Cluster 3 (54countries):
+Algeria,American Samoa,Azerbaijan,Bahrain,Bangladesh,Belize,Bhutan,Brunei Darussalam,Cabo Verde,Cambodia,Colombia,Djibouti,Dominican Republic,Ecuador,Egypt,El Salvador,Fiji,French Guiana,Guyana,Haiti,Honduras,India,Indonesia,Jamaica,Jordan,Kazakhstan,Kyrgyzstan,Lao People's Democratic Republic,Lebanon,Libya,Malaysia,Maldives,Mexico,Mongolia,Morocco,Myanmar,Nepal,Nicaragua,Oman,Panama,Paraguay,Peru,Philippines,Qatar,Saudi Arabia,South Africa,Suriname,Tokelau,Turkmenistan,Tuvalu,United Arab Emirates,Uzbekistan,Viet Nam,Western Sahara
+
